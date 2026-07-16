@@ -14,7 +14,7 @@ grab a QR code for each.
 - Toggle channels: X/Twitter, LinkedIn, **Telegram**, Bluesky, Mastodon, Farcaster, Reddit, HN, Newsletter, **Presentation / Slides** (for QR codes on decks/print — `medium=offline`).
 - **Custom "Other" channel:** type any source (e.g. `discord`, `whatsapp`, a partner domain) and pick its medium on the fly.
 - Generates every tagged URL (shown **abbreviated** to stay tidy) with per-link **Copy** and **QR code** (Download **or** Copy PNG). **Copy all** prefixes each line with its channel; **Download CSV** for the campaign log.
-- **Newsletter Include button** on the newsletter row: copies a short note + the newsletter-tagged link and opens a Telegram chat with the newsletter manager (`@emilymvaughan`, configurable) to paste & send.
+- **Newsletter Include button** on the newsletter row: opens Telegram's **share dialog** with a short note + the newsletter-tagged link **pre-filled** — you just pick the newsletter manager (`@emilymvaughan`, configurable) and send. (Also copies the message to the clipboard as a backup.) Telegram provides no way to open a specific person's chat *with* prewritten text, so the share dialog is used to guarantee the message is pre-filled.
 - **Step 5 — see results:** an **Open Traffic acquisition** button deep-links straight into the GA4 report (PL R&D property) + instructions (Session campaign; Realtime for an instant pulse).
 
 ## What is a UTM link? (short version)
