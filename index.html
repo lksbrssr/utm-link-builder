@@ -41,10 +41,8 @@
   .btn{background:var(--blue);color:#fff;padding:9px 16px;font-weight:600;font-size:14px}
   .btn.ghost{background:#fff;color:var(--navy);border:1px solid var(--line)}
   .mini{padding:6px 10px;font-size:12px;white-space:nowrap;margin-left:6px}
-  .copy{background:var(--navy);color:#fff}
-  .copy.done{background:var(--ok)}
-  .qrbtn,.inc{background:#fff;color:var(--navy);border:1px solid var(--line)}
-  .inc{border-color:#cfe6f6;color:#177bbf}
+  .copy,.qrbtn,.inc{background:var(--navy);color:#fff;border:none}
+  .copy.done,.inc.done{background:var(--ok)}
   .inc.done{background:var(--ok);color:#fff;border-color:var(--ok)}
   .cellbtns{white-space:nowrap;text-align:right}
   .toolbar{display:flex;gap:10px;flex-wrap:wrap}
@@ -106,7 +104,9 @@
   /* QR modal */
   .backdrop{position:fixed;inset:0;background:rgba(20,30,45,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:100}
   .backdrop.show{display:flex}
-  .modal{background:#fff;border-radius:14px;padding:22px;max-width:340px;width:100%;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+  .modal{position:relative;background:#fff;border-radius:14px;padding:22px;max-width:340px;width:100%;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+  .qx{position:absolute;top:10px;right:10px;width:30px;height:30px;border-radius:8px;background:none;color:var(--muted);font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer}
+  .qx:hover{background:var(--bg);color:var(--ink)}
   .modal img{width:240px;height:240px;image-rendering:pixelated;border:1px solid var(--line);border-radius:8px}
   .modal .qsrc{font-weight:700;color:var(--navy);margin:2px 0 10px}
   .modal .mrow{display:flex;gap:8px;justify-content:center;margin-top:14px;flex-wrap:wrap}
@@ -222,10 +222,6 @@
       </div>
     </div>
     <div style="margin-top:14px" id="out"><div class="empty">Complete steps 1–3 to generate links.</div></div>
-    <div class="note">
-      <b>Only add these tags to links you post elsewhere that point to the site</b> — a tweet, a LinkedIn post, the newsletter.
-      <b>Don't</b> tag links that go between pages of the site itself: an incoming tagged link starts a fresh “campaign” visit, so tagging internal links breaks the visitor's session and inflates your numbers. (Values stay lowercase-with-hyphens so the same source doesn't split in two.)
-    </div>
   </div>
 
   <!-- Step 5 -->
@@ -245,12 +241,12 @@
 <!-- QR modal -->
 <div class="backdrop" id="backdrop">
   <div class="modal">
+    <button class="qx" id="qclose" aria-label="Close">✕</button>
     <div class="qsrc" id="qsrc"></div>
     <img id="qimg" alt="QR code" />
     <div class="mrow">
       <button class="btn" id="qdl">Download PNG</button>
       <button class="btn ghost" id="qcopy">Copy PNG</button>
-      <button class="btn ghost" id="qclose">Close</button>
     </div>
   </div>
 </div>
@@ -349,8 +345,8 @@ function render(){
   let html='<table><colgroup><col class="c-chan"><col><col class="c-act"></colgroup>'+
            '<thead><tr><th>Channel</th><th>Tagged URL</th><th></th></tr></thead><tbody>';
   rows.forEach((r,i)=>{
-    let acts=`<button class="mini copy" data-i="${i}">Copy</button><button class="mini qrbtn" data-qr="${i}">QR</button>`;
-    if(r.source==="newsletter") acts+=`<button class="mini inc" data-inc="${i}">Include</button>`;
+    let acts=(r.source==="newsletter"?`<button class="mini inc" data-inc="${i}">Include</button>`:"")+
+             `<button class="mini copy" data-i="${i}">Copy</button><button class="mini qrbtn" data-qr="${i}">QR</button>`;
     html+=`<tr><td class="src">${r.source}<br><span style="font-weight:400;color:var(--muted);font-size:11px">${r.medium}</span></td>`+
           `<td class="url"><span class="u" title="${r.url}">${shortUrl(r.url)}</span></td>`+
           `<td class="cellbtns">${acts}</td></tr>`;
@@ -385,14 +381,17 @@ $("#csv").addEventListener("click",()=>{
 });
 
 // ---- Newsletter hand-off (per-row Include button) ----
+// Telegram can't open a specific person's chat WITH prefilled text, so we use the
+// share dialog (prefills the message, you pick @emilymvaughan) + copy as a backup.
 function includeInNewsletter(r,btn){
   const post=r.url.split("?")[0];
-  const msg=`Hi Emily — wanna include this in the next newsletter? It's ${post}`+
+  const note=`Hi Emily — wanna include this in the next newsletter? It's ${post}`+
             (r.campaign?`, part of the "${r.campaign}" campaign`:"")+(r.content?` (${r.content})`:"")+
-            `. Use this exact link so the clicks get tracked:\n${r.url}\nThanks!`;
-  navigator.clipboard.writeText(msg).catch(()=>{});
-  window.open("https://t.me/"+NEWSLETTER_HANDLE,"_blank","noopener");
-  if(btn){ btn.textContent="Copied ✓ paste it"; btn.classList.add("done"); setTimeout(()=>{btn.textContent="Include";btn.classList.remove("done")},2600); }
+            `. Use this exact link so the clicks get tracked. Thanks!`;
+  navigator.clipboard.writeText(note+"\n"+r.url).catch(()=>{});
+  const share="https://t.me/share/url?url="+encodeURIComponent(r.url)+"&text="+encodeURIComponent(note);
+  window.open(share,"_blank","noopener");
+  if(btn){ btn.textContent="Pick @"+NEWSLETTER_HANDLE; btn.classList.add("done"); setTimeout(()=>{btn.textContent="Include";btn.classList.remove("done")},3200); }
 }
 
 // ---- Stepper nav + collapse toggling + Open GA ----
