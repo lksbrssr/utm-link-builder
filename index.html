@@ -11,11 +11,11 @@
   }
   *{box-sizing:border-box}
   body{margin:0;font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-       color:var(--ink);background:var(--bg);padding:32px 16px}
-  .wrap{max-width:920px;margin:0 auto}
-  h1{font-size:24px;color:var(--navy);margin:0 0 2px}
-  .sub{color:var(--muted);margin:0 0 22px;font-size:13px}
-  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:18px}
+       color:var(--ink);background:var(--bg)}
+  .wrap{max-width:920px;margin:0 auto;padding:0 16px}
+  h1{font-size:24px;color:var(--navy);margin:0}
+  .sub{color:var(--muted);margin:16px 0 20px;font-size:13px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:18px;scroll-margin-top:140px}
   label{display:block;font-weight:600;color:var(--navy);font-size:13px;margin:0 0 6px}
   input[type=text]{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:8px;font-size:14px;font-family:ui-monospace,Menlo,monospace}
   input[type=text]:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(25,130,244,.15)}
@@ -30,48 +30,24 @@
         border-radius:20px;cursor:pointer;user-select:none;font-size:13px;background:#fff;transition:.12s}
   .chip input{accent-color:var(--blue)}
   .chip.on{background:var(--chip);border-color:var(--blue);color:var(--navy);font-weight:600}
-  .stephead{display:flex;align-items:center;gap:11px;margin-bottom:14px}
-  .stepnum{flex:none;width:28px;height:28px;border-radius:50%;background:var(--blue);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;transition:.15s}
-  .stephead h2{margin:0;font-size:17px;color:var(--navy);display:flex;align-items:center}
-  .card.done .stepnum{background:var(--ok)}
-  .card.done .stepnum::after{content:"✓"}
-  .card.done .stepnum .n{display:none}
-  .handoff{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-top:16px;padding:14px 16px;border:1px solid #cfe6f6;border-radius:10px;background:#F1FAFE}
-  .handoff b{color:var(--navy)}
-  .btn.tg{background:#229ED9}
-  .btn.tg.done{background:var(--ok)}
-  /* GA-style horizontal stepper */
-  .stepper{display:flex;align-items:flex-start;justify-content:center;max-width:760px;margin:0 auto 26px;padding:0 4px}
-  .pstep{display:flex;flex-direction:column;align-items:center;gap:8px;flex:none;width:104px;cursor:pointer;background:none;border:none;font:inherit;padding:0}
-  .pstep .dot{width:30px;height:30px;border-radius:50%;background:#fff;border:2px solid var(--line);color:var(--muted);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;transition:.15s}
-  .pstep .plabel{font-size:12px;color:var(--muted);text-align:center;line-height:1.3}
-  .pstep.active .dot{border-color:var(--blue);color:var(--blue)}
-  .pstep.done .dot{background:var(--blue);border-color:var(--blue);color:#fff}
-  .pstep.done .dot .num{display:none}
-  .pstep.done .dot::after{content:"\2713"}
-  .pstep.active .plabel,.pstep.done .plabel{color:var(--navy);font-weight:600}
-  .pconn{flex:1;height:2px;background:var(--line);margin-top:15px;min-width:12px;max-width:64px;transition:.15s}
-  .pconn.done{background:var(--blue)}
-  @media(max-width:560px){ .pstep .plabel{display:none} .pstep{width:auto} .pconn{max-width:none} }
-  .other{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
-  .other .lab{font-size:13px;color:var(--muted);font-weight:600}
-  .other input{max-width:210px}
-  .other select{padding:9px 10px;border:1px solid var(--line);border-radius:8px;font-size:13px;background:#fff;color:var(--ink)}
-  .other select:focus{outline:none;border-color:var(--blue)}
-  table{width:100%;border-collapse:collapse;margin-top:6px}
+  table{width:100%;border-collapse:collapse;margin-top:6px;table-layout:fixed}
   th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);font-size:13px;vertical-align:middle}
   th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.04em}
-  td.url{font-family:ui-monospace,Menlo,monospace;font-size:12px;word-break:break-all;color:var(--ink)}
+  col.c-chan{width:130px} col.c-act{width:210px}
+  td.url{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--muted);overflow:hidden}
+  td.url .u{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .src{font-weight:600;color:var(--navy);white-space:nowrap}
   button{font:inherit;border:none;border-radius:8px;cursor:pointer}
   .btn{background:var(--blue);color:#fff;padding:9px 16px;font-weight:600;font-size:14px}
   .btn.ghost{background:#fff;color:var(--navy);border:1px solid var(--line)}
-  .mini{padding:6px 11px;font-size:12px;white-space:nowrap;margin-left:6px}
+  .mini{padding:6px 10px;font-size:12px;white-space:nowrap;margin-left:6px}
   .copy{background:var(--navy);color:#fff}
   .copy.done{background:var(--ok)}
-  .qrbtn{background:#fff;color:var(--navy);border:1px solid var(--line)}
+  .qrbtn,.inc{background:#fff;color:var(--navy);border:1px solid var(--line)}
+  .inc{border-color:#cfe6f6;color:#177bbf}
+  .inc.done{background:var(--ok);color:#fff;border-color:var(--ok)}
   .cellbtns{white-space:nowrap;text-align:right}
-  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap}
   .empty{color:var(--muted);font-size:13px;padding:14px 4px}
   .note{background:#FFF8E6;border:1px solid #F3E2A9;border-radius:8px;padding:11px 13px;font-size:12.5px;color:#6b5a1e;margin-top:14px}
   code{background:#eef2f7;padding:1px 5px;border-radius:4px;font-size:12px}
@@ -83,7 +59,7 @@
   .tip .bubble{position:absolute;left:50%;top:calc(100% + 9px);transform:translateX(-50%);width:290px;max-width:76vw;
        background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:10px;
        box-shadow:0 10px 30px rgba(20,30,45,.18);padding:11px 13px;font-size:12.5px;line-height:1.55;
-       font-weight:400;text-align:left;z-index:60;display:none}
+       font-weight:400;text-align:left;z-index:70;display:none}
   .tip .bubble::before{content:"";position:absolute;left:50%;top:-6px;transform:translateX(-50%) rotate(45deg);
        width:10px;height:10px;background:#fff;border-left:1px solid var(--line);border-top:1px solid var(--line)}
   .tip:hover .bubble,.tip:focus .bubble,.tip.open .bubble{display:block}
@@ -92,133 +68,177 @@
   .tip .bubble.wide{width:330px}
   .tip .bubble.right{left:auto;right:-6px;transform:none}
   .tip .bubble.right::before{left:auto;right:12px;transform:rotate(45deg)}
+  /* step cards */
+  .stephead{display:flex;align-items:center;gap:11px}
+  .step .stephead{cursor:pointer}
+  .stepnum{flex:none;width:28px;height:28px;border-radius:50%;background:var(--blue);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;transition:.15s}
+  .stephead h2{margin:0;font-size:17px;color:var(--navy);display:flex;align-items:center}
+  .card.done .stepnum{background:var(--ok)}
+  .card.done .stepnum .num{display:none}
+  .card.done .stepnum::after{content:"\2713"}
+  .grow{flex:1;min-width:0;overflow:hidden}
+  .summary{display:none;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted);font-size:12.5px;font-family:ui-monospace,Menlo,monospace}
+  .chev{flex:none;color:var(--muted);transition:.15s;font-size:13px}
+  .card.collapsed .stepbody{display:none}
+  .card.collapsed .summary{display:block}
+  .card.collapsed .chev{transform:rotate(-90deg)}
+  .step:not(.collapsed) .stepbody{margin-top:14px}
+  /* handoff / telegram */
+  .btn.tg{background:#229ED9}
+  .btn.tg.done{background:var(--ok)}
+  /* GA-style horizontal stepper */
+  .stepper{display:flex;align-items:flex-start;justify-content:center;max-width:760px;margin:0 auto;padding:0 4px}
+  .pstep{display:flex;flex-direction:column;align-items:center;gap:7px;flex:none;width:104px;cursor:pointer;background:none;border:none;font:inherit;padding:0}
+  .pstep .dot{width:28px;height:28px;border-radius:50%;background:#fff;border:2px solid var(--line);color:var(--muted);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;transition:.15s}
+  .pstep .plabel{font-size:11.5px;color:var(--muted);text-align:center;line-height:1.3}
+  .pstep.active .dot{border-color:var(--blue);color:var(--blue)}
+  .pstep.done .dot{background:var(--blue);border-color:var(--blue);color:#fff}
+  .pstep.done .dot .num{display:none}
+  .pstep.done .dot::after{content:"\2713"}
+  .pstep.active .plabel,.pstep.done .plabel{color:var(--navy);font-weight:600}
+  .pconn{flex:1;height:2px;background:var(--line);margin-top:14px;min-width:12px;max-width:64px;transition:.15s}
+  .pconn.done{background:var(--blue)}
+  /* sticky top bar */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(247,249,252,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .topbar .inner{max-width:920px;margin:0 auto;padding:11px 16px}
+  .topbar h1{font-size:18px;margin:0 0 10px}
+  @media(max-width:560px){ .pstep .plabel{display:none} .pstep{width:auto} .pconn{max-width:none} .topbar h1{font-size:16px} }
   /* QR modal */
-  .backdrop{position:fixed;inset:0;background:rgba(20,30,45,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}
+  .backdrop{position:fixed;inset:0;background:rgba(20,30,45,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:100}
   .backdrop.show{display:flex}
   .modal{background:#fff;border-radius:14px;padding:22px;max-width:340px;width:100%;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.25)}
   .modal img{width:240px;height:240px;image-rendering:pixelated;border:1px solid var(--line);border-radius:8px}
   .modal .qsrc{font-weight:700;color:var(--navy);margin:2px 0 10px}
-  .modal .qurl{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--muted);word-break:break-all;margin:12px 0}
-  .modal .mrow{display:flex;gap:8px;justify-content:center;margin-top:6px}
+  .modal .mrow{display:flex;gap:8px;justify-content:center;margin-top:14px;flex-wrap:wrap}
 </style>
 </head>
 <body>
+
+<div class="topbar">
+  <div class="inner">
+    <h1>PL · UTM Link Builder
+      <span class="tip" role="button" aria-label="What is a UTM link?">i<span class="bubble wide">
+        <b>What is a UTM link?</b><br>A normal URL with tags on the end that tell analytics <b>where a visitor came from</b>. Nothing is registered anywhere — the tags are read the moment someone clicks and lands on the site. Works on any site that has an analytics tag.<br><br>
+        Format: <code>?utm_source=…&amp;utm_medium=…&amp;utm_campaign=…</code>
+      </span></span>
+    </h1>
+    <div class="stepper" id="stepper">
+      <button class="pstep" data-target="step1"><span class="dot"><span class="num">1</span></span><span class="plabel">Paste URL</span></button>
+      <div class="pconn" id="pc1"></div>
+      <button class="pstep" data-target="step2"><span class="dot"><span class="num">2</span></span><span class="plabel">Campaign</span></button>
+      <div class="pconn" id="pc2"></div>
+      <button class="pstep" data-target="step3"><span class="dot"><span class="num">3</span></span><span class="plabel">Channels</span></button>
+      <div class="pconn" id="pc3"></div>
+      <button class="pstep" data-target="step4"><span class="dot"><span class="num">4</span></span><span class="plabel">Get links</span></button>
+      <div class="pconn" id="pc4"></div>
+      <button class="pstep" data-target="step5"><span class="dot"><span class="num">5</span></span><span class="plabel">See results</span></button>
+    </div>
+  </div>
+</div>
+
 <div class="wrap">
-  <h1>PL · UTM Link Builder
-    <span class="tip" role="button" aria-label="What is a UTM link?">i<span class="bubble wide">
-      <b>What is a UTM link?</b><br>A normal URL with tags on the end that tell analytics <b>where a visitor came from</b>. Nothing is registered anywhere — the tags are read the moment someone clicks and lands on the site. Works on any site that has an analytics tag.<br><br>
-      Format: <code>?utm_source=…&amp;utm_medium=…&amp;utm_campaign=…</code><br><br>
-      <b>Golden rule:</b> reuse the same campaign across all channels for one push, and only tag <b>external</b> links pointing to the site — never internal page-to-page links.
-    </span></span>
-  </h1>
   <p class="sub">Build UTM-tagged campaign links for any Protocol Labs site — drop a link, pick channels, copy tagged URLs &amp; QR codes. <span style="color:var(--blue)">Hover the&nbsp;ⓘ&nbsp;icons for help.</span></p>
 
-  <div class="stepper" id="stepper">
-    <button class="pstep" data-target="step1"><span class="dot"><span class="num">1</span></span><span class="plabel">Paste URL</span></button>
-    <div class="pconn" id="pc1"></div>
-    <button class="pstep" data-target="step2"><span class="dot"><span class="num">2</span></span><span class="plabel">Campaign</span></button>
-    <div class="pconn" id="pc2"></div>
-    <button class="pstep" data-target="step3"><span class="dot"><span class="num">3</span></span><span class="plabel">Channels</span></button>
-    <div class="pconn" id="pc3"></div>
-    <button class="pstep" data-target="step4"><span class="dot"><span class="num">4</span></span><span class="plabel">Get links</span></button>
-    <div class="pconn" id="pc4"></div>
-    <button class="pstep" data-target="step5"><span class="dot"><span class="num">5</span></span><span class="plabel">See results</span></button>
-  </div>
-
   <!-- Step 1 -->
-  <div class="card" id="step1">
-    <div class="stephead"><span class="stepnum"><span class="n">1</span></span>
+  <div class="card step" id="step1">
+    <div class="stephead">
+      <span class="stepnum"><span class="num">1</span></span>
       <h2>Paste the page URL
         <span class="tip" role="button" aria-label="About the URL">i<span class="bubble">The page you're linking to (any PL domain). Any <code>?params</code> already on the link are <b>stripped automatically</b> before tagging.</span></span>
-      </h2></div>
-    <input id="url" type="text" placeholder="https://www.plrd.org/insights/human-connectome/" autocomplete="off" />
-    <div class="hint">Works with any PL domain — or start from one of these:</div>
-    <div class="quick" id="quick"></div>
+      </h2>
+      <span class="grow"><span class="summary" id="sum1"></span></span>
+      <span class="chev">▾</span>
+    </div>
+    <div class="stepbody">
+      <input id="url" type="text" placeholder="https://www.plrd.org/insights/human-connectome/" autocomplete="off" />
+      <div class="hint">Works with any PL domain — or start from one of these:</div>
+      <div class="quick" id="quick"></div>
+    </div>
   </div>
 
   <!-- Step 2 -->
-  <div class="card" id="step2">
-    <div class="stephead"><span class="stepnum"><span class="n">2</span></span>
-      <h2>Name the campaign</h2></div>
-    <div class="row">
-      <div>
-        <label for="camp">Campaign <span style="font-weight:400;color:var(--muted)">(auto from URL — edit if needed)</span>
-          <span class="tip" role="button" aria-label="About utm_campaign">i<span class="bubble"><b>utm_campaign</b> — which push this is.<br>• One post → the <b>post slug</b>.<br>• A blog <b>series</b> → the <b>series name</b> (e.g. <code>connectome-series</code>), reused across every part so GA4 groups them together.</span></span>
-        </label>
-        <input id="camp" type="text" placeholder="human-connectome" autocomplete="off" />
-        <div class="hint">One post → the post slug. A series → the series name (reuse across parts).</div>
-      </div>
-      <div>
-        <label for="content">utm_content <span style="font-weight:400;color:var(--muted)">(optional)</span>
-          <span class="tip" role="button" aria-label="About utm_content">i<span class="bubble right"><b>utm_content</b> (optional) — a distinguisher between otherwise-identical links. Use it for a <b>series part</b> (<code>part-1</code>, <code>part-2</code>) <i>or</i> a placement (<code>bio-link</code>). Give it <b>one job</b> per link. Each post already has its own URL, so this just makes the campaign report readable at a glance.</span></span>
-        </label>
-        <input id="content" type="text" placeholder="part-1 · thread-1 · bio-link" autocomplete="off" />
-        <div class="hint">Series part, variant, or placement. Leave blank if not needed.</div>
+  <div class="card step" id="step2">
+    <div class="stephead">
+      <span class="stepnum"><span class="num">2</span></span>
+      <h2>Name the campaign</h2>
+      <span class="grow"><span class="summary" id="sum2"></span></span>
+      <span class="chev">▾</span>
+    </div>
+    <div class="stepbody">
+      <div class="row">
+        <div>
+          <label for="camp">Campaign <span style="font-weight:400;color:var(--muted)">(auto from URL — edit if needed)</span>
+            <span class="tip" role="button" aria-label="About utm_campaign">i<span class="bubble"><b>utm_campaign</b> — which push this is.<br>• One post → the <b>post slug</b>.<br>• A blog <b>series</b> → the <b>series name</b> (e.g. <code>connectome-series</code>), reused across every part so GA4 groups them together.</span></span>
+          </label>
+          <input id="camp" type="text" placeholder="human-connectome" autocomplete="off" />
+          <div class="hint">One post → the post slug. A series → the series name (reuse across parts).</div>
+        </div>
+        <div>
+          <label for="content">utm_content <span style="font-weight:400;color:var(--muted)">(optional)</span>
+            <span class="tip" role="button" aria-label="About utm_content">i<span class="bubble right"><b>utm_content</b> (optional) — a distinguisher between otherwise-identical links. Use it for a <b>series part</b> (<code>part-1</code>, <code>part-2</code>) <i>or</i> a placement (<code>bio-link</code>). Give it <b>one job</b> per link.</span></span>
+          </label>
+          <input id="content" type="text" placeholder="part-1 · thread-1 · bio-link" autocomplete="off" />
+          <div class="hint">Series part, variant, or placement. Leave blank if not needed.</div>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- Step 3 -->
-  <div class="card" id="step3">
-    <div class="stephead"><span class="stepnum"><span class="n">3</span></span>
+  <div class="card step" id="step3">
+    <div class="stephead">
+      <span class="stepnum"><span class="num">3</span></span>
       <h2>Pick channels
-        <span class="tip" role="button" aria-label="About channels, source and medium">i<span class="bubble">Each channel sets two tags:<br>• <b>utm_source</b> = the exact place (<code>twitter</code>)<br>• <b>utm_medium</b> = the bucket it belongs to (<code>social</code>, <code>email</code>, <code>referral</code>, <code>offline</code>)<br><br>GA4 groups traffic by <b>medium</b> — a wrong medium lands in “Unassigned”. Twitter, LinkedIn &amp; Telegram are different <b>sources</b> but all medium <code>social</code>.<br><br><b>Presentation / Slides</b> uses <code>offline</code> (for QR on decks/print) — it shows under Session source/medium, not a default channel.</span></span>
-      </h2></div>
-    <div class="chips" id="chips"></div>
-    <div class="other">
-      <span class="lab">Other:
-        <span class="tip" role="button" aria-label="About the custom channel">i<span class="bubble">Add any source not listed (e.g. <code>discord</code>, <code>whatsapp</code>, a partner domain), then pick its <b>medium</b> bucket: <code>social</code> (any social post), <code>email</code> (newsletter), <code>referral</code> (partner site), <code>offline</code> (QR on slides/print).</span></span>
-      </span>
-      <input id="customSource" type="text" placeholder="source (e.g. discord)" autocomplete="off" />
-      <select id="customMedium" title="medium">
-        <option value="social">social</option>
-        <option value="email">email</option>
-        <option value="referral">referral</option>
-        <option value="offline">offline</option>
-      </select>
-      <span class="hint" style="margin:0">Type a source and it's added to the list below.</span>
+        <span class="tip" role="button" aria-label="About channels, source and medium">i<span class="bubble">Each channel sets two tags:<br>• <b>utm_source</b> = the exact place (<code>twitter</code>)<br>• <b>utm_medium</b> = the bucket it belongs to (<code>social</code>, <code>email</code>, <code>referral</code>, <code>offline</code>)<br><br>GA4 groups traffic by <b>medium</b> — a wrong medium lands in “Unassigned”. Twitter, LinkedIn &amp; Telegram are different <b>sources</b> but all medium <code>social</code>.<br><br><b>Presentation / Slides</b> uses <code>offline</code> (for QR on decks/print).</span></span>
+      </h2>
+      <span class="grow"><span class="summary" id="sum3"></span></span>
+      <span class="chev">▾</span>
+    </div>
+    <div class="stepbody">
+      <div class="chips" id="chips"></div>
+      <div class="other">
+        <span class="lab" style="font-size:13px;color:var(--muted);font-weight:600">Other:
+          <span class="tip" role="button" aria-label="About the custom channel">i<span class="bubble">Add any source not listed (e.g. <code>discord</code>, <code>whatsapp</code>, a partner domain), then pick its <b>medium</b> bucket: <code>social</code> (any social post), <code>email</code> (newsletter), <code>referral</code> (partner site), <code>offline</code> (QR on slides/print).</span></span>
+        </span>
+        <input id="customSource" type="text" placeholder="source (e.g. discord)" autocomplete="off" style="max-width:210px" />
+        <select id="customMedium" title="medium">
+          <option value="social">social</option>
+          <option value="email">email</option>
+          <option value="referral">referral</option>
+          <option value="offline">offline</option>
+        </select>
+        <span class="hint" style="margin:0">Type a source and it's added below.</span>
+      </div>
     </div>
   </div>
 
   <!-- Step 4 -->
   <div class="card" id="step4">
     <div class="stephead" style="justify-content:space-between">
-      <div style="display:flex;align-items:center;gap:11px"><span class="stepnum"><span class="n">4</span></span><h2>Grab your links</h2></div>
-      <div class="toolbar" style="margin:0">
+      <div style="display:flex;align-items:center;gap:11px"><span class="stepnum"><span class="num">4</span></span><h2>Grab your links</h2></div>
+      <div class="toolbar">
         <button class="btn ghost" id="copyAll">Copy all</button>
-        <button class="btn" id="csv">Download CSV (for the log)</button>
+        <button class="btn" id="csv">Download CSV</button>
       </div>
     </div>
-    <div id="out"><div class="empty">Complete steps 1–3 to generate links.</div></div>
-
-    <div class="handoff">
-      <div>
-        <b>📬 Hand off to the newsletter</b>
-        <div class="hint" style="margin-top:3px">Copies the newsletter-tagged link + campaign details and opens a chat with <b>@emilymvaughan</b> (who manages the newsletter) — just paste &amp; send.</div>
-      </div>
-      <button class="btn tg" id="toNewsletter">Send to @emilymvaughan</button>
-    </div>
-
+    <div style="margin-top:14px" id="out"><div class="empty">Complete steps 1–3 to generate links.</div></div>
     <div class="note">
-      <b>Reminder:</b> only tag <b>external</b> links pointing to the site (social posts, newsletter).
-      Never UTM internal site-to-site links. Lowercase &amp; hyphens only.
+      <b>Only add these tags to links you post elsewhere that point to the site</b> — a tweet, a LinkedIn post, the newsletter.
+      <b>Don't</b> tag links that go between pages of the site itself: an incoming tagged link starts a fresh “campaign” visit, so tagging internal links breaks the visitor's session and inflates your numbers. (Values stay lowercase-with-hyphens so the same source doesn't split in two.)
     </div>
   </div>
 
   <!-- Step 5 -->
   <div class="card" id="step5">
-    <div class="stephead"><span class="stepnum"><span class="n">5</span></span>
+    <div class="stephead"><span class="stepnum"><span class="num">5</span></span>
       <h2>See your results in Google Analytics
         <span class="tip" role="button" aria-label="About checking results">i<span class="bubble">Your tagged links flow into GA4. Standard reports can take <b>24–48h</b> to fill in; <b>Realtime</b> is instant. Compare channels for one push via <b>Session campaign</b>.</span></span>
-      </h2></div>
-    <p style="margin:0 0 10px;font-size:13.5px">Once your links are out in the world, this is where the payoff shows up — who clicked, from which channel.</p>
-    <ol style="margin:0 0 14px;padding-left:20px;font-size:13.5px;line-height:1.7">
-      <li>Open <b>Google Analytics</b> and choose the property for that site (e.g. <b>PL R&D</b> for plrd.org).</li>
-      <li>Go to <b>Reports → Acquisition → Traffic acquisition</b>.</li>
-      <li>Set the dimension to <b>Session campaign</b> and find your campaign name to compare channels.</li>
-      <li>Just posted? Check <b>Reports → Realtime</b> for an instant pulse.</li>
-    </ol>
-    <button class="btn" id="openGA">Open Google Analytics ↗</button>
+      </h2>
+    </div>
+    <div style="margin-top:14px">
+      <p style="margin:0 0 10px;font-size:13.5px">Once your links are out in the world, this is where the payoff shows up — who clicked, from which channel. The button opens the <b>Traffic acquisition</b> report for the <b>PL R&D</b> property; set the dimension to <b>Session campaign</b> to compare channels. (For another site, switch property inside GA.)</p>
+      <button class="btn" id="openGA">Open Traffic acquisition in GA ↗</button>
+    </div>
   </div>
 </div>
 
@@ -227,9 +247,9 @@
   <div class="modal">
     <div class="qsrc" id="qsrc"></div>
     <img id="qimg" alt="QR code" />
-    <div class="qurl" id="qurl"></div>
     <div class="mrow">
       <button class="btn" id="qdl">Download PNG</button>
+      <button class="btn ghost" id="qcopy">Copy PNG</button>
       <button class="btn ghost" id="qclose">Close</button>
     </div>
   </div>
@@ -237,12 +257,8 @@
 
 <script src="qrcode.js"></script>
 <script>
-// ---- Config: PL domains for quick-pick (edit freely) ----
-const DOMAINS = [
-  "www.plrd.org","protocol.ai","plcapital.xyz","plneuro.xyz",
-  "filecoin.io","ipfs.tech","libp2p.io"
-];
-// ---- Config: channels. Add/remove/reorder freely ----
+// ---- Config ----
+const DOMAINS = ["www.plrd.org","protocol.ai","plcapital.xyz","plneuro.xyz","filecoin.io","ipfs.tech","libp2p.io"];
 const CHANNELS = [
   {key:"twitter",   label:"X / Twitter",  source:"twitter",   medium:"social", on:true},
   {key:"linkedin",  label:"LinkedIn",     source:"linkedin",  medium:"social", on:true},
@@ -255,185 +271,172 @@ const CHANNELS = [
   {key:"newsletter",label:"Newsletter",   source:"newsletter",medium:"email",  on:true},
   {key:"presentation",label:"Presentation / Slides",source:"presentation",medium:"offline",on:false},
 ];
+const NEWSLETTER_HANDLE = "emilymvaughan";
+const GA_URL = "https://analytics.google.com/analytics/web/#/a96910779p545854971/reports/explorer?r=lifecycle-traffic-acquisition-v2";
 
 const $ = s => document.querySelector(s);
 const chipsEl=$("#chips"), outEl=$("#out"), quickEl=$("#quick");
 
-// quick-pick domain buttons
 DOMAINS.forEach(d=>{
   const b=document.createElement("button");
   b.textContent=d;
   b.addEventListener("click",()=>{ $("#url").value="https://"+d+"/"; $("#url").focus(); render(); });
   quickEl.appendChild(b);
 });
-
-// channel chips
 CHANNELS.forEach(c=>{
   const l=document.createElement("label");
   l.className="chip"+(c.on?" on":"");
   l.innerHTML=`<input type="checkbox" ${c.on?"checked":""} data-k="${c.key}"> ${c.label}`;
-  l.querySelector("input").addEventListener("change",e=>{
-    c.on=e.target.checked; l.classList.toggle("on",c.on); render();
-  });
+  l.querySelector("input").addEventListener("change",e=>{ c.on=e.target.checked; l.classList.toggle("on",c.on); render(); });
   chipsEl.appendChild(l);
 });
 
-function slugFromUrl(u){
-  try{ const p=new URL(u).pathname.replace(/\/+$/,""); return (p.split("/").filter(Boolean).pop()||"").toLowerCase(); }
-  catch{ return ""; }
-}
+function slugFromUrl(u){ try{ const p=new URL(u).pathname.replace(/\/+$/,""); return (p.split("/").filter(Boolean).pop()||"").toLowerCase(); }catch{ return ""; } }
 function cleanBase(u){ try{ const x=new URL(u); return x.origin+x.pathname; }catch{ return u.split("?")[0]; } }
 function sane(s){ return (s||"").trim().toLowerCase().replace(/\s+/g,"-"); }
-
+function isUrl(u){ try{ new URL(u); return true; }catch{ return false; } }
 function build(base, ch, camp, content){
   const p=new URLSearchParams();
   p.set("utm_source",ch.source); p.set("utm_medium",ch.medium); p.set("utm_campaign",camp);
   if(content) p.set("utm_content",content);
   return base+"?"+p.toString();
 }
+function shortUrl(u){ return u.replace(/^https?:\/\//,""); }
 
-function isUrl(u){ try{ new URL(u); return true; }catch{ return false; } }
+let rows=[], prevDone=[false,false,false,false,false], firstRun=true;
+function activeChannels(){
+  const a=CHANNELS.filter(c=>c.on).slice();
+  const cs=sane($("#customSource").value);
+  if(cs) a.push({source:cs, medium:$("#customMedium").value});
+  return a;
+}
 function updateSteps(){
   const raw=$("#url").value.trim();
-  const anyCh=CHANNELS.some(c=>c.on)||!!sane($("#customSource").value);
-  const d=[
-    isUrl(raw),
-    !!(sane($("#camp").value)||slugFromUrl(raw)) && isUrl(raw),
-    anyCh,
-    rows.length>0,
-    false // "see results" is a go-do-it step
-  ];
+  const camp=sane($("#camp").value)||slugFromUrl(raw);
+  const content=sane($("#content").value);
+  const chs=activeChannels();
+  const d=[ isUrl(raw), !!camp && isUrl(raw), chs.length>0, rows.length>0, false ];
   [1,2,3,4,5].forEach((n,i)=>$("#step"+n).classList.toggle("done", d[i]));
+  // stepper
   const psteps=document.querySelectorAll("#stepper .pstep");
   const active=d.indexOf(false);
-  psteps.forEach((el,i)=>{
-    el.classList.toggle("done", d[i]);
-    el.classList.toggle("active", i===active);
-  });
+  psteps.forEach((el,i)=>{ el.classList.toggle("done", d[i]); el.classList.toggle("active", i===active); });
   [1,2,3,4].forEach(i=>$("#pc"+i).classList.toggle("done", d[i-1]));
+  // collapse steps 1-3 when they just became done; expand if no longer done (skip on first load)
+  if(!firstRun){
+    [0,1,2].forEach(i=>{
+      const card=$("#step"+(i+1));
+      if(d[i] && !prevDone[i]) card.classList.add("collapsed");
+      if(!d[i]) card.classList.remove("collapsed");
+    });
+  }
+  prevDone=d; firstRun=false;
+  // summaries (shown when collapsed)
+  $("#sum1").textContent = raw ? shortUrl(cleanBase(raw)) : "";
+  $("#sum2").textContent = camp ? (camp + (content?" · "+content:"")) : "";
+  $("#sum3").textContent = chs.length ? chs.map(c=>c.source).join(", ") : "";
 }
 
-let rows=[];
 function render(){
   const raw=$("#url").value.trim();
   const camp=sane($("#camp").value)||slugFromUrl(raw);
   const content=sane($("#content").value);
   if(!raw){ outEl.innerHTML='<div class="empty">Complete steps 1–3 to generate links.</div>'; rows=[]; updateSteps(); return; }
   const base=cleanBase(raw);
-  const active=CHANNELS.filter(c=>c.on).slice();
-  const cs=sane($("#customSource").value);
-  if(cs) active.push({source:cs, medium:$("#customMedium").value});
-  if(!active.length){ outEl.innerHTML='<div class="empty">Pick at least one channel.</div>'; rows=[]; return; }
-  rows=active.map(c=>({source:c.source,medium:c.medium,campaign:camp,content,url:build(base,c,camp,content)}));
-  let html='<table><thead><tr><th>Channel</th><th>Tagged URL</th><th></th></tr></thead><tbody>';
+  const chs=activeChannels();
+  if(!chs.length){ outEl.innerHTML='<div class="empty">Pick at least one channel.</div>'; rows=[]; updateSteps(); return; }
+  rows=chs.map(c=>({source:c.source,medium:c.medium,campaign:camp,content,url:build(base,c,camp,content)}));
+  let html='<table><colgroup><col class="c-chan"><col><col class="c-act"></colgroup>'+
+           '<thead><tr><th>Channel</th><th>Tagged URL</th><th></th></tr></thead><tbody>';
   rows.forEach((r,i)=>{
+    let acts=`<button class="mini copy" data-i="${i}">Copy</button><button class="mini qrbtn" data-qr="${i}">QR</button>`;
+    if(r.source==="newsletter") acts+=`<button class="mini inc" data-inc="${i}">Include</button>`;
     html+=`<tr><td class="src">${r.source}<br><span style="font-weight:400;color:var(--muted);font-size:11px">${r.medium}</span></td>`+
-          `<td class="url">${r.url}</td>`+
-          `<td class="cellbtns"><button class="mini copy" data-i="${i}">Copy</button><button class="mini qrbtn" data-qr="${i}">QR</button></td></tr>`;
+          `<td class="url"><span class="u" title="${r.url}">${shortUrl(r.url)}</span></td>`+
+          `<td class="cellbtns">${acts}</td></tr>`;
   });
   html+='</tbody></table>';
   outEl.innerHTML=html;
-  updateSteps();
   outEl.querySelectorAll(".copy").forEach(b=>b.addEventListener("click",()=>{
     navigator.clipboard.writeText(rows[b.dataset.i].url);
-    b.textContent="Copied ✓"; b.classList.add("done");
-    setTimeout(()=>{b.textContent="Copy";b.classList.remove("done")},1200);
+    b.textContent="Copied ✓"; b.classList.add("done"); setTimeout(()=>{b.textContent="Copy";b.classList.remove("done")},1200);
   }));
   outEl.querySelectorAll(".qrbtn").forEach(b=>b.addEventListener("click",()=>showQR(rows[b.dataset.qr])));
+  outEl.querySelectorAll(".inc").forEach(b=>b.addEventListener("click",()=>includeInNewsletter(rows[b.dataset.inc],b)));
+  updateSteps();
 }
 
 ["camp","content","customSource"].forEach(id=>$("#"+id).addEventListener("input",render));
 $("#customMedium").addEventListener("change",render);
-$("#url").addEventListener("input",()=>{
-  if(!$("#camp").value){ const s=slugFromUrl($("#url").value); if(s) $("#camp").value=s; }
-  render();
-});
+$("#url").addEventListener("input",()=>{ if(!$("#camp").value){ const s=slugFromUrl($("#url").value); if(s) $("#camp").value=s; } render(); });
 
 $("#copyAll").addEventListener("click",e=>{
   if(!rows.length) return;
-  navigator.clipboard.writeText(rows.map(r=>r.url).join("\n"));
+  navigator.clipboard.writeText(rows.map(r=>`${r.source}: ${r.url}`).join("\n"));
   e.target.textContent="Copied all ✓"; setTimeout(()=>e.target.textContent="Copy all",1200);
 });
-
 $("#csv").addEventListener("click",()=>{
   if(!rows.length) return;
   const today=new Date().toISOString().slice(0,10);
   const head=["Date","Campaign","Channel (source)","Medium","utm_content","Final URL"];
-  const lines=[head.join(",")].concat(rows.map(r=>
-    [today,r.campaign,r.source,r.medium,r.content,r.url].map(v=>`"${String(v).replace(/"/g,'""')}"`).join(",")));
+  const lines=[head.join(",")].concat(rows.map(r=>[today,r.campaign,r.source,r.medium,r.content,r.url].map(v=>`"${String(v).replace(/"/g,'""')}"`).join(",")));
   const blob=new Blob([lines.join("\n")],{type:"text/csv"});
-  const a=document.createElement("a"); a.href=URL.createObjectURL(blob);
-  a.download=`utm-${rows[0].campaign||"links"}-${today}.csv`; a.click();
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=`utm-${rows[0].campaign||"links"}-${today}.csv`; a.click();
 });
 
-// ---- Stepper navigation + Open GA ----
+// ---- Newsletter hand-off (per-row Include button) ----
+function includeInNewsletter(r,btn){
+  const post=r.url.split("?")[0];
+  const msg=`Hi Emily — wanna include this in the next newsletter? It's ${post}`+
+            (r.campaign?`, part of the "${r.campaign}" campaign`:"")+(r.content?` (${r.content})`:"")+
+            `. Use this exact link so the clicks get tracked:\n${r.url}\nThanks!`;
+  navigator.clipboard.writeText(msg).catch(()=>{});
+  window.open("https://t.me/"+NEWSLETTER_HANDLE,"_blank","noopener");
+  if(btn){ btn.textContent="Copied ✓ paste it"; btn.classList.add("done"); setTimeout(()=>{btn.textContent="Include";btn.classList.remove("done")},2600); }
+}
+
+// ---- Stepper nav + collapse toggling + Open GA ----
 document.querySelectorAll("#stepper .pstep").forEach(el=>{
   el.addEventListener("click",()=>{
     const t=document.getElementById(el.dataset.target);
-    if(t) t.scrollIntoView({behavior:"smooth",block:"start"});
+    if(t){ t.classList.remove("collapsed"); t.scrollIntoView({behavior:"smooth",block:"start"}); }
   });
 });
-$("#openGA").addEventListener("click",()=>window.open("https://analytics.google.com/","_blank","noopener"));
-
-// ---- Newsletter hand-off (@emilymvaughan) ----
-const NEWSLETTER_HANDLE="emilymvaughan";
-$("#toNewsletter").addEventListener("click",e=>{
-  const raw=$("#url").value.trim();
-  if(!isUrl(raw)){ alert("Paste a valid page URL first (step 1)."); return; }
-  const base=cleanBase(raw);
-  const camp=sane($("#camp").value)||slugFromUrl(raw);
-  const content=sane($("#content").value);
-  const url=build(base,{source:"newsletter",medium:"email"},camp,content);
-  const msg=`Hi Emily 👋 For the newsletter:\n\nPost: ${base}\nCampaign: ${camp}${content?` (${content})`:""}\nUse this tagged link (so clicks are attributed): ${url}\n\nThanks!`;
-  navigator.clipboard.writeText(msg).catch(()=>{});
-  window.open("https://t.me/"+NEWSLETTER_HANDLE,"_blank","noopener");
-  const b=e.target; b.textContent="Copied ✓ — paste in Telegram"; b.classList.add("done");
-  setTimeout(()=>{ b.textContent="Send to @"+NEWSLETTER_HANDLE; b.classList.remove("done"); },2600);
+document.querySelectorAll(".step .stephead").forEach(h=>{
+  h.addEventListener("click",e=>{ if(e.target.closest(".tip")) return; h.closest(".card").classList.toggle("collapsed"); });
 });
+$("#openGA").addEventListener("click",()=>window.open(GA_URL,"_blank","noopener"));
 
 // ---- QR ----
 let currentQR=null;
 function qrDataURL(text){ const qr=qrcode(0,'M'); qr.addData(text); qr.make(); return qr.createDataURL(8,16); }
-function showQR(r){
-  currentQR=r;
-  $("#qsrc").textContent=r.source+" · "+r.campaign+(r.content?" · "+r.content:"");
-  $("#qimg").src=qrDataURL(r.url);
-  $("#qurl").textContent=r.url;
-  $("#backdrop").classList.add("show");
-}
+function qrCanvas(text){ return new Promise(res=>{ const img=new Image(); img.onload=()=>{ const c=document.createElement("canvas"); c.width=c.height=720; const ctx=c.getContext("2d"); ctx.imageSmoothingEnabled=false; ctx.fillStyle="#fff"; ctx.fillRect(0,0,720,720); ctx.drawImage(img,0,0,720,720); res(c); }; img.src=qrDataURL(text); }); }
+function showQR(r){ currentQR=r; $("#qsrc").textContent=r.source+" · "+r.campaign+(r.content?" · "+r.content:""); $("#qimg").src=qrDataURL(r.url); $("#backdrop").classList.add("show"); }
 function closeQR(){ $("#backdrop").classList.remove("show"); }
 $("#qclose").addEventListener("click",closeQR);
 $("#backdrop").addEventListener("click",e=>{ if(e.target===$("#backdrop")) closeQR(); });
 document.addEventListener("keydown",e=>{ if(e.key==="Escape"){ closeQR(); document.querySelectorAll(".tip.open").forEach(x=>x.classList.remove("open")); } });
+function qrName(){ return `qr-${currentQR.source}-${currentQR.campaign}${currentQR.content?"-"+currentQR.content:""}.png`; }
+$("#qdl").addEventListener("click",async ()=>{ const c=await qrCanvas(currentQR.url); const a=document.createElement("a"); a.href=c.toDataURL("image/png"); a.download=qrName(); a.click(); });
+$("#qcopy").addEventListener("click",async e=>{
+  try{
+    const c=await qrCanvas(currentQR.url);
+    const blob=await new Promise(r=>c.toBlob(r,"image/png"));
+    await navigator.clipboard.write([new ClipboardItem({"image/png":blob})]);
+    e.target.textContent="Copied ✓"; setTimeout(()=>e.target.textContent="Copy PNG",1400);
+  }catch(err){ alert("Your browser blocked image copy — use Download PNG instead."); }
+});
 
-// ---- Tooltips: hover works via CSS; add tap/keyboard support ----
+// ---- Tooltips: tap/keyboard support (hover via CSS) ----
 document.querySelectorAll(".tip").forEach(t=>{
   t.setAttribute("tabindex","0");
-  t.addEventListener("click",e=>{
-    e.stopPropagation();
-    const open=t.classList.contains("open");
-    document.querySelectorAll(".tip.open").forEach(x=>x.classList.remove("open"));
-    if(!open) t.classList.add("open");
-  });
+  t.addEventListener("click",e=>{ e.stopPropagation(); const open=t.classList.contains("open"); document.querySelectorAll(".tip.open").forEach(x=>x.classList.remove("open")); if(!open) t.classList.add("open"); });
   t.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); t.click(); } });
-  t.querySelector(".bubble").addEventListener("click",e=>e.stopPropagation());
+  const bub=t.querySelector(".bubble"); if(bub) bub.addEventListener("click",e=>e.stopPropagation());
 });
 document.addEventListener("click",()=>document.querySelectorAll(".tip.open").forEach(x=>x.classList.remove("open")));
-$("#qdl").addEventListener("click",()=>{
-  if(!currentQR) return;
-  const img=new Image();
-  img.onload=()=>{
-    const canvas=document.createElement("canvas");
-    const target=720; canvas.width=target; canvas.height=target;
-    const ctx=canvas.getContext("2d"); ctx.imageSmoothingEnabled=false;
-    ctx.drawImage(img,0,0,target,target);
-    const a=document.createElement("a");
-    a.href=canvas.toDataURL("image/png");
-    a.download=`qr-${currentQR.source}-${currentQR.campaign}${currentQR.content?"-"+currentQR.content:""}.png`;
-    a.click();
-  };
-  img.src=qrDataURL(currentQR.url);
-});
+
+updateSteps();
 </script>
 </body>
 </html>

@@ -7,15 +7,15 @@ grab a QR code for each.
 **▶ Live tool:** https://lksbrssr.github.io/utm-link-builder/
 
 ## What it does
-- **Guided 5-step flow** with a GA-style progress stepper (Paste URL → Campaign → Channels → Get links → See results), with checkmarks as you go.
+- **Guided 5-step flow** with a **sticky** GA-style progress stepper (Paste URL → Campaign → Channels → Get links → See results). Completed input steps **collapse to a summary** and re-expand on click.
 - **Inline tooltips** (hover / tap the ⓘ) explain every field — what `medium` is, how to tag a series, etc. — instead of a separate wall of text.
 - Paste a page URL on **any PL domain** → auto-derives the campaign from the URL slug.
 - Quick-pick buttons for common PL domains (plrd.org, protocol.ai, plcapital.xyz, plneuro.xyz, filecoin.io, ipfs.tech, libp2p.io).
 - Toggle channels: X/Twitter, LinkedIn, **Telegram**, Bluesky, Mastodon, Farcaster, Reddit, HN, Newsletter, **Presentation / Slides** (for QR codes on decks/print — `medium=offline`).
 - **Custom "Other" channel:** type any source (e.g. `discord`, `whatsapp`, a partner domain) and pick its medium on the fly.
-- Instantly generates every tagged URL with per-link **Copy**, **QR code** (download PNG), **Copy all**, and **Download CSV** (for a campaign log).
-- **Newsletter hand-off:** one button copies the newsletter-tagged link + campaign details and opens a Telegram chat with the newsletter manager (`@emilymvaughan`, configurable) to paste & send.
-- **Step 5 — see results:** shortcut + instructions for checking traffic in GA4 (Traffic acquisition → Session campaign; Realtime for an instant pulse).
+- Generates every tagged URL (shown **abbreviated** to stay tidy) with per-link **Copy** and **QR code** (Download **or** Copy PNG). **Copy all** prefixes each line with its channel; **Download CSV** for the campaign log.
+- **Newsletter Include button** on the newsletter row: copies a short note + the newsletter-tagged link and opens a Telegram chat with the newsletter manager (`@emilymvaughan`, configurable) to paste & send.
+- **Step 5 — see results:** an **Open Traffic acquisition** button deep-links straight into the GA4 report (PL R&D property) + instructions (Session campaign; Realtime for an instant pulse).
 
 ## What is a UTM link? (short version)
 A UTM link is a normal URL with tags on the end that tell Google Analytics
