@@ -7,12 +7,15 @@ grab a QR code for each.
 **▶ Live tool:** https://lksbrssr.github.io/utm-link-builder/
 
 ## What it does
+- **Guided 5-step flow** with a GA-style progress stepper (Paste URL → Campaign → Channels → Get links → See results), with checkmarks as you go.
+- **Inline tooltips** (hover / tap the ⓘ) explain every field — what `medium` is, how to tag a series, etc. — instead of a separate wall of text.
 - Paste a page URL on **any PL domain** → auto-derives the campaign from the URL slug.
 - Quick-pick buttons for common PL domains (plrd.org, protocol.ai, plcapital.xyz, plneuro.xyz, filecoin.io, ipfs.tech, libp2p.io).
 - Toggle channels: X/Twitter, LinkedIn, **Telegram**, Bluesky, Mastodon, Farcaster, Reddit, HN, Newsletter, **Presentation / Slides** (for QR codes on decks/print — `medium=offline`).
 - **Custom "Other" channel:** type any source (e.g. `discord`, `whatsapp`, a partner domain) and pick its medium on the fly.
 - Instantly generates every tagged URL with per-link **Copy**, **QR code** (download PNG), **Copy all**, and **Download CSV** (for a campaign log).
-- Built-in **"What is a UTM?"** explainer (including what `medium` means, and how to tag a blog *series*).
+- **Newsletter hand-off:** one button copies the newsletter-tagged link + campaign details and opens a Telegram chat with the newsletter manager (`@emilymvaughan`, configurable) to paste & send.
+- **Step 5 — see results:** shortcut + instructions for checking traffic in GA4 (Traffic acquisition → Session campaign; Realtime for an instant pulse).
 
 ## What is a UTM link? (short version)
 A UTM link is a normal URL with tags on the end that tell Google Analytics
@@ -53,8 +56,14 @@ Two files — `index.html` and `qrcode.js` (bundled, offline QR generation). Jus
 `index.html` in a browser. No build, no install, no external calls.
 
 ## Configure
-Edit the `DOMAINS` and `CHANNELS` arrays near the top of the `<script>` in
-`index.html` to change the quick-pick domains or channel/source/medium mappings.
+Edit these near the top of the `<script>` in `index.html`:
+- `DOMAINS` — quick-pick domain buttons.
+- `CHANNELS` — channel list + source/medium mappings.
+- `NEWSLETTER_HANDLE` — the Telegram handle the "Hand off to the newsletter" button opens (default `emilymvaughan`).
+
+> Note: the newsletter button copies the message and opens the chat — the person
+> pastes & sends. True auto-send would need a Telegram bot backend (possible once
+> deployed with a server, not on static hosting).
 
 ## Credits
 QR generation via [qrcode-generator](https://github.com/kazuhikoarase/qrcode-generator) (MIT), bundled locally.
