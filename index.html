@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PL R&D — UTM Link Builder</title>
+<style>
+  :root{
+    --navy:#1F3A5F; --blue:#1982F4; --ink:#20242B; --muted:#5A6672;
+    --line:#E3E8EF; --bg:#F7F9FC; --chip:#E8F1FC; --ok:#1E9E5A;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       color:var(--ink);background:var(--bg);padding:32px 16px}
+  .wrap{max-width:900px;margin:0 auto}
+  h1{font-size:24px;color:var(--navy);margin:0 0 2px}
+  .sub{color:var(--muted);margin:0 0 24px;font-size:13px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:18px}
+  label{display:block;font-weight:600;color:var(--navy);font-size:13px;margin:0 0 6px}
+  input[type=text]{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:8px;font-size:14px;font-family:ui-monospace,Menlo,monospace}
+  input[type=text]:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(25,130,244,.15)}
+  .row{display:flex;gap:14px;flex-wrap:wrap}
+  .row>div{flex:1;min-width:220px}
+  .hint{font-size:12px;color:var(--muted);margin-top:5px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .chip{display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border:1px solid var(--line);
+        border-radius:20px;cursor:pointer;user-select:none;font-size:13px;background:#fff;transition:.12s}
+  .chip input{accent-color:var(--blue)}
+  .chip.on{background:var(--chip);border-color:var(--blue);color:var(--navy);font-weight:600}
+  table{width:100%;border-collapse:collapse;margin-top:6px}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);font-size:13px;vertical-align:middle}
+  th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+  td.url{font-family:ui-monospace,Menlo,monospace;font-size:12px;word-break:break-all;color:var(--ink)}
+  .src{font-weight:600;color:var(--navy);white-space:nowrap}
+  button{font:inherit;border:none;border-radius:8px;cursor:pointer}
+  .btn{background:var(--blue);color:#fff;padding:9px 16px;font-weight:600;font-size:14px}
+  .btn.ghost{background:#fff;color:var(--navy);border:1px solid var(--line)}
+  .copy{background:var(--navy);color:#fff;padding:6px 12px;font-size:12px;white-space:nowrap}
+  .copy.done{background:var(--ok)}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+  .empty{color:var(--muted);font-size:13px;padding:14px 4px}
+  .note{background:#FFF8E6;border:1px solid #F3E2A9;border-radius:8px;padding:11px 13px;font-size:12.5px;color:#6b5a1e;margin-top:14px}
+  code{background:#eef2f7;padding:1px 5px;border-radius:4px;font-size:12px}
+  details.explain{background:#fff;border:1px solid var(--line);border-radius:12px;padding:4px 20px;margin-bottom:18px}
+  details.explain summary{cursor:pointer;font-weight:700;color:var(--navy);font-size:15px;padding:14px 0;list-style:none;display:flex;align-items:center;gap:8px}
+  details.explain summary::-webkit-details-marker{display:none}
+  details.explain summary::before{content:"▸";color:var(--blue);transition:.15s}
+  details.explain[open] summary::before{transform:rotate(90deg)}
+  .explain h3{color:var(--navy);font-size:14px;margin:16px 0 6px}
+  .explain p{margin:6px 0;font-size:13.5px;color:var(--ink)}
+  .explain .dim{color:var(--muted);font-size:12.5px}
+  .explain table{margin:8px 0 4px}
+  .explain td,.explain th{font-size:12.5px;padding:7px 10px}
+  .pill{display:inline-block;background:var(--chip);color:var(--navy);border-radius:5px;padding:1px 7px;font-family:ui-monospace,Menlo,monospace;font-size:12px}
+  .ex{font-family:ui-monospace,Menlo,monospace;font-size:12px;background:#f4f7fb;border:1px solid var(--line);border-radius:8px;padding:10px 12px;word-break:break-all;margin:6px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>PL R&D — UTM Link Builder</h1>
+  <p class="sub">Drop a plrd.org link, pick channels, copy the tagged URLs. GA4 property: PL R&D (G-M8LW4KE782).</p>
+
+  <details class="explain">
+    <summary>What is a UTM link? (30-second explainer)</summary>
+    <p>A <b>UTM link</b> is just a normal URL with a few extra tags on the end that tell Google Analytics <b>where a visitor came from</b>. Nothing is “registered” anywhere — the tags are read automatically the moment someone clicks the link and lands on the site.</p>
+    <div class="ex">https://www.plrd.org/insights/post/<b style="color:#1982F4">?utm_source=twitter&amp;utm_medium=social&amp;utm_campaign=post</b></div>
+    <p class="dim">Everything after the <code>?</code> is the tagging. Without it, that visit just shows up as “Direct / unknown” in GA4.</p>
+
+    <h3>The tags, in plain English</h3>
+    <table>
+      <thead><tr><th>Tag</th><th>Answers…</th><th>Examples</th></tr></thead>
+      <tbody>
+        <tr><td><span class="pill">utm_source</span></td><td><b>Where</b> is it posted? (the specific place)</td><td>twitter, linkedin, newsletter</td></tr>
+        <tr><td><span class="pill">utm_medium</span></td><td><b>What type</b> of channel is that? (the category)</td><td>social, email, referral</td></tr>
+        <tr><td><span class="pill">utm_campaign</span></td><td><b>Which</b> push/post is this?</td><td>human-connectome</td></tr>
+        <tr><td><span class="pill">utm_content</span></td><td><i>(optional)</i> which <b>version</b> of the link?</td><td>thread-1, bio-link</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Wait — what exactly is “medium”?</h3>
+    <p><b>Source</b> is the <i>exact place</i> (“twitter”). <b>Medium</b> is the <i>bucket that place belongs to</i> (“social”). Think of it as: Twitter, LinkedIn and Bluesky are all different <b>sources</b>, but they’re the same <b>medium</b> = <code>social</code>. Your newsletter is source <code>newsletter</code>, medium <code>email</code>.</p>
+    <p class="dim">Why it matters: GA4 groups traffic into channels (Organic Social, Email, Referral…) <b>based on the medium</b>. If you type the wrong medium, GA4 can’t bucket it and the traffic falls into “Unassigned.” So keep it to <code>social</code> (any social post), <code>email</code> (newsletter), or <code>referral</code> (a partner site linking us).</p>
+
+    <h3>How to use it</h3>
+    <p>1 · Paste the page link. &nbsp; 2 · Pick the channels you’ll post to. &nbsp; 3 · Copy each tagged link into that post/newsletter. &nbsp; 4 · A few days later, see results in <b>GA4 → Reports → Acquisition → Traffic acquisition</b> (set the dimension to <b>Session campaign</b> to compare channels for one post).</p>
+    <p class="dim">Golden rule: reuse the <b>same campaign name</b> across all channels for one post, and only tag <b>external</b> links pointing to the site — never internal page-to-page links.</p>
+  </details>
+
+  <div class="card">
+    <label for="url">1 · Paste the page URL</label>
+    <input id="url" type="text" placeholder="https://www.plrd.org/insights/human-connectome/" autocomplete="off" />
+    <div class="hint">Any params already on the link are stripped automatically.</div>
+
+    <div class="row" style="margin-top:16px">
+      <div>
+        <label for="camp">2 · Campaign <span style="font-weight:400;color:var(--muted)">(auto from URL — edit if needed)</span></label>
+        <input id="camp" type="text" placeholder="human-connectome" autocomplete="off" />
+        <div class="hint">Reuse the SAME campaign across every channel for one post.</div>
+      </div>
+      <div>
+        <label for="content">utm_content <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+        <input id="content" type="text" placeholder="thread-1 · bio-link · pinned" autocomplete="off" />
+        <div class="hint">Variant/placement. Leave blank if not needed.</div>
+      </div>
+    </div>
+
+    <label style="margin-top:16px">3 · Channels</label>
+    <div class="chips" id="chips"></div>
+  </div>
+
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <label style="margin:0">Generated links</label>
+      <div class="toolbar" style="margin:0">
+        <button class="btn ghost" id="copyAll">Copy all</button>
+        <button class="btn" id="csv">Download CSV (for the log)</button>
+      </div>
+    </div>
+    <div id="out"><div class="empty">Paste a URL above to generate links.</div></div>
+    <div class="note">
+      <b>Reminder:</b> only tag <b>external</b> links pointing to the site (social posts, newsletter).
+      Never UTM internal site-to-site links. Lowercase &amp; hyphens only.
+    </div>
+  </div>
+</div>
+
+<script>
+// channel -> {source, medium}. Add/remove freely.
+const CHANNELS = [
+  {key:"twitter",   label:"X / Twitter",  source:"twitter",   medium:"social", on:true},
+  {key:"linkedin",  label:"LinkedIn",     source:"linkedin",  medium:"social", on:true},
+  {key:"bluesky",   label:"Bluesky",      source:"bluesky",   medium:"social", on:false},
+  {key:"mastodon",  label:"Mastodon",     source:"mastodon",  medium:"social", on:false},
+  {key:"farcaster", label:"Farcaster",    source:"farcaster", medium:"social", on:false},
+  {key:"reddit",    label:"Reddit",       source:"reddit",    medium:"social", on:false},
+  {key:"hn",        label:"Hacker News",  source:"hn",        medium:"social", on:false},
+  {key:"newsletter",label:"Newsletter",   source:"newsletter",medium:"email",  on:true},
+];
+
+const $ = s => document.querySelector(s);
+const chipsEl = $("#chips"), outEl = $("#out");
+
+// build chips
+CHANNELS.forEach(c=>{
+  const l=document.createElement("label");
+  l.className="chip"+(c.on?" on":"");
+  l.innerHTML=`<input type="checkbox" ${c.on?"checked":""} data-k="${c.key}"> ${c.label}`;
+  l.querySelector("input").addEventListener("change",e=>{
+    c.on=e.target.checked; l.classList.toggle("on",c.on); render();
+  });
+  chipsEl.appendChild(l);
+});
+
+function slugFromUrl(u){
+  try{
+    const p=new URL(u).pathname.replace(/\/+$/,"");
+    const seg=p.split("/").filter(Boolean).pop()||"";
+    return seg.toLowerCase();
+  }catch{ return ""; }
+}
+function cleanBase(u){
+  try{ const x=new URL(u); return x.origin+x.pathname; }catch{ return u.split("?")[0]; }
+}
+function sane(s){ return (s||"").trim().toLowerCase().replace(/\s+/g,"-"); }
+
+function build(base, ch, camp, content){
+  const p=new URLSearchParams();
+  p.set("utm_source",ch.source);
+  p.set("utm_medium",ch.medium);
+  p.set("utm_campaign",camp);
+  if(content) p.set("utm_content",content);
+  return base+"?"+p.toString();
+}
+
+let rows=[];
+function render(){
+  const raw=$("#url").value.trim();
+  const camp=sane($("#camp").value)|| slugFromUrl(raw);
+  const content=sane($("#content").value);
+  if(!raw){ outEl.innerHTML='<div class="empty">Paste a URL above to generate links.</div>'; rows=[]; return; }
+  const base=cleanBase(raw);
+  const active=CHANNELS.filter(c=>c.on);
+  if(!active.length){ outEl.innerHTML='<div class="empty">Pick at least one channel.</div>'; rows=[]; return; }
+  rows=active.map(c=>({source:c.source,medium:c.medium,campaign:camp,content,url:build(base,c,camp,content)}));
+  let html='<table><thead><tr><th>Channel</th><th>Tagged URL</th><th></th></tr></thead><tbody>';
+  rows.forEach((r,i)=>{
+    html+=`<tr><td class="src">${r.source}<br><span style="font-weight:400;color:var(--muted);font-size:11px">${r.medium}</span></td>`+
+          `<td class="url">${r.url}</td>`+
+          `<td><button class="copy" data-i="${i}">Copy</button></td></tr>`;
+  });
+  html+='</tbody></table>';
+  outEl.innerHTML=html;
+  outEl.querySelectorAll(".copy").forEach(b=>b.addEventListener("click",()=>{
+    navigator.clipboard.writeText(rows[b.dataset.i].url);
+    b.textContent="Copied ✓"; b.classList.add("done");
+    setTimeout(()=>{b.textContent="Copy";b.classList.remove("done")},1200);
+  }));
+}
+
+["url","camp","content"].forEach(id=>$("#"+id).addEventListener("input",()=>{
+  if(id==="url"){ const s=slugFromUrl($("#url").value); if(s && !$("#camp").value) $("#camp").placeholder=s||"human-connectome"; }
+  render();
+}));
+
+$("#url").addEventListener("input",()=>{ // auto-fill campaign when empty
+  if(!$("#camp").value){ const s=slugFromUrl($("#url").value); if(s) $("#camp").value=s; }
+});
+
+$("#copyAll").addEventListener("click",e=>{
+  if(!rows.length) return;
+  navigator.clipboard.writeText(rows.map(r=>r.url).join("\n"));
+  e.target.textContent="Copied all ✓"; setTimeout(()=>e.target.textContent="Copy all",1200);
+});
+
+$("#csv").addEventListener("click",()=>{
+  if(!rows.length) return;
+  const today=new Date().toISOString().slice(0,10);
+  const head=["Date","Post slug","Channel (source)","Medium","Campaign","utm_content","Final URL"];
+  const lines=[head.join(",")].concat(rows.map(r=>
+    [today,r.campaign,r.source,r.medium,r.campaign,r.content,r.url]
+    .map(v=>`"${String(v).replace(/"/g,'""')}"`).join(",")));
+  const blob=new Blob([lines.join("\n")],{type:"text/csv"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=`utm-${rows[0].campaign||"links"}-${today}.csv`;
+  a.click();
+});
+</script>
+</body>
+</html>
