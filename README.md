@@ -9,7 +9,8 @@ grab a QR code for each.
 ## What it does
 - Paste a page URL on **any PL domain** → auto-derives the campaign from the URL slug.
 - Quick-pick buttons for common PL domains (plrd.org, protocol.ai, plcapital.xyz, plneuro.xyz, filecoin.io, ipfs.tech, libp2p.io).
-- Toggle channels: X/Twitter, LinkedIn, **Telegram**, Bluesky, Mastodon, Farcaster, Reddit, HN, Newsletter.
+- Toggle channels: X/Twitter, LinkedIn, **Telegram**, Bluesky, Mastodon, Farcaster, Reddit, HN, Newsletter, **Presentation / Slides** (for QR codes on decks/print — `medium=offline`).
+- **Custom "Other" channel:** type any source (e.g. `discord`, `whatsapp`, a partner domain) and pick its medium on the fly.
 - Instantly generates every tagged URL with per-link **Copy**, **QR code** (download PNG), **Copy all**, and **Download CSV** (for a campaign log).
 - Built-in **"What is a UTM?"** explainer (including what `medium` means, and how to tag a blog *series*).
 
@@ -31,8 +32,12 @@ https://www.plrd.org/insights/post/?utm_source=twitter&utm_medium=social&utm_cam
 
 **source vs medium:** Twitter, LinkedIn, Telegram and Bluesky are different *sources*
 but the same *medium* = `social`. GA4 groups traffic into channels **based on the
-medium**, so keep it to `social` / `email` / `referral` or traffic lands in
+medium**, so keep it to `social` / `email` / `referral` / `offline` or traffic lands in
 "Unassigned".
+
+**QR on slides/print:** use medium `offline` (source `presentation`). GA4 has no
+default offline channel, so it shows under Unassigned — find it via the
+**Session source / medium** dimension (`presentation / offline`).
 
 **Blog series:** put the **series** in `utm_campaign` (e.g. `connectome-series`) and
 the **part** in `utm_content` (`part-1`, `part-2`) so all parts group together but

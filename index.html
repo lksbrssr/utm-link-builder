@@ -30,6 +30,11 @@
         border-radius:20px;cursor:pointer;user-select:none;font-size:13px;background:#fff;transition:.12s}
   .chip input{accent-color:var(--blue)}
   .chip.on{background:var(--chip);border-color:var(--blue);color:var(--navy);font-weight:600}
+  .other{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
+  .other .lab{font-size:13px;color:var(--muted);font-weight:600}
+  .other input{max-width:210px}
+  .other select{padding:9px 10px;border:1px solid var(--line);border-radius:8px;font-size:13px;background:#fff;color:var(--ink)}
+  .other select:focus{outline:none;border-color:var(--blue)}
   table{width:100%;border-collapse:collapse;margin-top:6px}
   th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);font-size:13px;vertical-align:middle}
   th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.04em}
@@ -93,7 +98,10 @@
 
     <h3>Wait — what exactly is “medium”?</h3>
     <p><b>Source</b> is the <i>exact place</i> (“twitter”). <b>Medium</b> is the <i>bucket that place belongs to</i> (“social”). Twitter, LinkedIn, Telegram and Bluesky are all different <b>sources</b>, but they’re the same <b>medium</b> = <code>social</code>. Your newsletter is source <code>newsletter</code>, medium <code>email</code>.</p>
-    <p class="dim">Why it matters: GA4 groups traffic into channels (Organic Social, Email, Referral…) <b>based on the medium</b>. If you type the wrong medium, GA4 can’t bucket it and the traffic falls into “Unassigned.” So keep it to <code>social</code> (any social post), <code>email</code> (newsletter), or <code>referral</code> (a partner site linking us).</p>
+    <p class="dim">Why it matters: GA4 groups traffic into channels (Organic Social, Email, Referral…) <b>based on the medium</b>. If you type the wrong medium, GA4 can’t bucket it and the traffic falls into “Unassigned.” So keep it to <code>social</code> (any social post), <code>email</code> (newsletter), <code>referral</code> (a partner site linking us), or <code>offline</code> (a QR code on slides / print — see below).</p>
+
+    <h3>QR codes on slides &amp; print (offline)</h3>
+    <p>Putting a QR on a <b>presentation</b>, poster, or handout? Use medium <code>offline</code> (source <code>presentation</code>). GA4 has no default “offline” channel, so these land under <b>Unassigned</b> in the default channel group — that’s expected. You’ll still see them clearly via the <b>Session source / medium</b> dimension (e.g. <code>presentation / offline</code>), and you can add a custom channel group later if you want a dedicated bucket.</p>
 
     <h3>Publishing a blog <i>series</i>?</h3>
     <p>Use <span class="pill">utm_campaign</span> for the <b>series</b> (e.g. <code>connectome-series</code>) so every part is grouped together in GA4. Use <span class="pill">utm_content</span> for the <b>part</b> — <code>part-1</code>, <code>part-2</code>, <code>part-3</code> — so the individual posts are distinguishable right in the campaign report.</p>
@@ -125,6 +133,17 @@
 
     <label style="margin-top:16px">3 · Channels</label>
     <div class="chips" id="chips"></div>
+    <div class="other">
+      <span class="lab">Other:</span>
+      <input id="customSource" type="text" placeholder="source (e.g. discord)" autocomplete="off" />
+      <select id="customMedium" title="medium">
+        <option value="social">social</option>
+        <option value="email">email</option>
+        <option value="referral">referral</option>
+        <option value="offline">offline</option>
+      </select>
+      <span class="hint" style="margin:0">Type a source and it's added to the list below.</span>
+    </div>
   </div>
 
   <div class="card">
@@ -174,6 +193,7 @@ const CHANNELS = [
   {key:"reddit",    label:"Reddit",       source:"reddit",    medium:"social", on:false},
   {key:"hn",        label:"Hacker News",  source:"hn",        medium:"social", on:false},
   {key:"newsletter",label:"Newsletter",   source:"newsletter",medium:"email",  on:true},
+  {key:"presentation",label:"Presentation / Slides",source:"presentation",medium:"offline",on:false},
 ];
 
 const $ = s => document.querySelector(s);
@@ -219,7 +239,9 @@ function render(){
   const content=sane($("#content").value);
   if(!raw){ outEl.innerHTML='<div class="empty">Paste a URL above to generate links.</div>'; rows=[]; return; }
   const base=cleanBase(raw);
-  const active=CHANNELS.filter(c=>c.on);
+  const active=CHANNELS.filter(c=>c.on).slice();
+  const cs=sane($("#customSource").value);
+  if(cs) active.push({source:cs, medium:$("#customMedium").value});
   if(!active.length){ outEl.innerHTML='<div class="empty">Pick at least one channel.</div>'; rows=[]; return; }
   rows=active.map(c=>({source:c.source,medium:c.medium,campaign:camp,content,url:build(base,c,camp,content)}));
   let html='<table><thead><tr><th>Channel</th><th>Tagged URL</th><th></th></tr></thead><tbody>';
@@ -238,7 +260,8 @@ function render(){
   outEl.querySelectorAll(".qrbtn").forEach(b=>b.addEventListener("click",()=>showQR(rows[b.dataset.qr])));
 }
 
-["camp","content"].forEach(id=>$("#"+id).addEventListener("input",render));
+["camp","content","customSource"].forEach(id=>$("#"+id).addEventListener("input",render));
+$("#customMedium").addEventListener("change",render);
 $("#url").addEventListener("input",()=>{
   if(!$("#camp").value){ const s=slugFromUrl($("#url").value); if(s) $("#camp").value=s; }
   render();
